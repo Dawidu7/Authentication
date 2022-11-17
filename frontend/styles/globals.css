@@ -13,7 +13,7 @@
   }
 
   input[type="submit"] {
-    @apply bg-white transition duration-75 scale-100 active:scale-95 hover:cursor-pointer
+    @apply bg-white transition duration-75 scale-100 active:scale-95 hover:cursor-pointer max-w-min p-2
   }
 
   a {

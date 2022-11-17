@@ -19,10 +19,10 @@ const Register = () => {
   }
 
   const getEmailError: (value: string) => string = (value: string) => {
-    if(value.length > 320) {
-      return 'Email too long'
+    if(value.length < 3 || value.length > 320) {
+      return 'Email must be between 3 and 320 characters long'
     }
-    else if(!value.match('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')) {
+    if(!value.match('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')) {
       return 'Invalid Email'
     }
 
@@ -30,11 +30,8 @@ const Register = () => {
   }
 
   const getUsernameError: (value: string) => string = (value: string) => {
-    if(value.length < 3) {
-      return 'Username shorter than 3 charactes'
-    }
-    else if(value.length > 20) {
-      return 'Username longer than 20 characters'
+    if(value.length < 3 || value.length > 20) {
+      return 'Username must be between 3 and 20 characters long'
     }
     
     return ''
@@ -44,14 +41,8 @@ const Register = () => {
     <form onSubmit={register}>
       <Input label='Email' type='text' getError={getEmailError} />
       <Input label='Username' type='text' getError={getUsernameError} />
-      <div>
-        <label>Password</label>
-        <input type="password" name="password" />
-      </div>
-      <div>
-        <label>Confirm Password</label>
-        <input type="password" name="confirmPassword" />
-      </div>
+      <Input label='Password' type='text' />
+      <Input label='Confirm Password' type='text' />
       <input type="submit" value="Register" />
     </form>
   )

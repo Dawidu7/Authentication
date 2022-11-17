@@ -2,29 +2,32 @@
 
 import { useState } from 'react'
 
+import { toCamelCase } from '../utils/functions'
+
 
 interface IInput {
   label: string,
   type: string,
-  getError: (value: string) => string
+  name?: string,
+  getError?: (value: string) => string
 }
 
-const Input = ({ label, type, getError } : IInput) => {
+const Input = ({ label, type, name = toCamelCase(label), getError = () => '' } : IInput) => {
   const [ value, setValue ] = useState('')
   const [ error, setError ] = useState('')
 
   return (
-    <div>
-      <div className="flex justify-between gap-x-4 items-center">
-        {label && <label>{label}</label>}
-        <input 
-          type={type} 
-          value={value} 
-          onChange={e => {setValue(e.currentTarget.value); error !== '' && setError(getError(e.currentTarget.value)) }}
-          onBlur={e => setError(getError(e.currentTarget.value))}
-        />
-      </div>
-      {error !== '' && <p className='text-red-700 text-center'>{error}</p>}
+    <div className='flex flex-col gap-y-0.5'>
+      <label className={`${error !== '' ? 'text-red-700' : ''}`}>{label}</label>
+      <input 
+        type={type} 
+        value={value} 
+        name={name}
+        onChange={e => {setValue(e.currentTarget.value); error !== '' && setError(getError(e.currentTarget.value)) }}
+        onBlur={e => setError(getError(e.currentTarget.value))}
+        className={`${error !== '' ? 'border-red-700 focus:border-red-800' : ''}`}
+      />
+      {error !== '' && <p className='text-red-700'>{error}</p>}
     </div>
   )
 }

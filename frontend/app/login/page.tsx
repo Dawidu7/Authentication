@@ -1,5 +1,7 @@
 'use client'
 
+import Input from "../../components/Input"
+
 import useAuth from "../../hooks/useAuth"
 
 
@@ -7,14 +9,8 @@ const Login = () => {
   const { login } = useAuth()
   return (
     <form onSubmit={login}>
-      <div>
-        <label>Email</label>
-        <input type="email" name="email" />
-      </div>
-      <div>
-        <label>Password</label>
-        <input type="password" name="password" />
-      </div>
+      <Input label='Email' type='text' />
+      <Input label='Password' type='password' />
       <input type="submit" value="Login" />
     </form>
   )
